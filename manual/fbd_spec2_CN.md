@@ -1,22 +1,20 @@
-## System Setting
-
+## 系统设置
 ### CLKE
 
 |I_ADR|W/R|D7|D6|D5|D4|D3|D2|D1|D0|Reset Value|
 |-|-|-|-|-|-|-|-|-|-|-|
 |#0|W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|CLKE|00H|
 
-#### Description
-The CLKE is the register bit for controlling the internal master clock gating
-(ENABLE/DISABLE).  
-To activate the clock, set the CLKE to "1" with the ALRST set to "1".  
-See "Initialization Procedure" for details of controlling the clock.
-+ "0": Clock disabled (reset value)
-+ "1": Clock enabled
+#### 描述
+CLKE是用于控制内部主时钟门控（ENABLE / DISABLE）的寄存器位。
+要激活时钟，请将ALKE设置为“1”，将CLKE设置为“1”。
+有关控制时钟的详细信息，请参见“初始化步骤”。
++ "0": 时钟禁用 (复位初值)
++ "1": 时钟使能
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
 
 
 ### ALRST
@@ -25,16 +23,15 @@ See "Initialization Procedure" for details of controlling the clock.
 |-|-|-|-|-|-|-|-|-|-|-|
 |#1|W/R|ALRST|"0"|"0"|"0"|"0"|"0"|"0"|"0"|80H|
 
-#### Description
-The ALRST is the register used to reset all the interface register.  
-+ "0": Out of the reset state.
-+ "1": Resets the interface registers. (reset value)
+#### 描述
+ALRST是用于复位所有接口寄存器的寄存器。  
++ "0": 退出重置状态。
++ "1": 重置接口寄存器。 （重置值）
 
-The following interface registers are reset:  
-+ I_ADR#3, #5 to #28, and from #32 to #79
+以下接口寄存器被重置：  
++ I_ADR#3，#5到#28，从#32到#79
 
-The following interface registers including the control registers are not reset with this register
-bit:
+包含控制寄存器的以下接口寄存器不会通过该寄存器位复位：
 + I_ADR#0: CLKE
 + I_ADR#1: ALRST (this register bit)
 + I_ADR#2: AP0-3
@@ -42,9 +39,9 @@ bit:
 + I_ADR#80: COMM
 
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
 
 
 ### AP0, AP1, AP2, AP3
@@ -53,19 +50,19 @@ bit:
 |-|-|-|-|-|-|-|-|-|-|-|
 |#2|W/R|"0"|"0"|"0"|"0"|AP3|AP2|AP1|AP0|0FH|
 
-#### Description
-The AP0-3 is the power-down control register bits in the analog block.  
-When setting a register bit to "1" (reset value), its power-down state is established, resulting in lower power consumption. The correspondence between each register bit and its controllable
+#### 描述
+AP0-3是模拟模块中的掉电控制寄存器位。
+将寄存器位设置为“1”（复位值）时，其将进入断电状态，从而降低功耗。 每个寄存器位与其可控制之间的对应关系
 
-blocks is as follows:
+模块如下：
 + AP0: VREF, IREF
 + AP1: SPAMP, SPOUT1
 + AP2: SPAMP, SPOUT2
 + AP3: DAC
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
 
 
 ### GAIN
@@ -75,25 +72,25 @@ blocks is as follows:
 |#3|W/R|"0"|"0"|"0"|"0"|"0"|"0"|GAIN1|GAIN0|01H|
 
 
-#### Description
+#### 描述
 
-The GAIN is the register used for selecting a speaker amplifier gain as shown below:  
+GAIN是用于选择扬声器放大器增益的寄存器，如下所示：  
 
 |GAIN1|GAIN0|SPAmplifier|Gain|
 |-|-|-|-|
 |"0"|"0"|SPOUT|gain =5.0dB|
-|"0"|"1"|SPOUT|gain =6.5dB (reset value)|
+|"0"|"1"|SPOUT|gain =6.5dB (复位初值)|
 |"1"|"0"|SPOUT|gain =7.0dB|
 |"1"|"1"|SPOUT|gain =7.5dB|
 
-Note) Gain values above assume no-load conditions.  
-With 8ohm loaded, the gains become lower by about 0.2 dB (typ.).
+注意) 假设空载条件下面的增益值。 
+负载为8欧姆，增益降低约0.2 dB（典型值）。
 
-#### Reset Conditions
+#### 重置条件
 
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 
 ### HW_ID
@@ -102,10 +99,10 @@ With 8ohm loaded, the gains become lower by about 0.2 dB (typ.).
 |-|-|-|-|-|-|-|-|-|-|-|
 |#4|R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|"1"|01H|
 
-#### Description
-The HW_ID is the register used to hold the hardware version and read-only.  
-The value is "01H" (fixed).  
-The value can be read even if the ALRST bit is set to "1".
+#### 描述
+HW_ID是用于保存硬件版本的只读寄存器。  
+值为“01H”（固定）。  
+即使ALRST位设置为“1”，也可以读取该值。
 
 
 ### CONTENTS_DATA_REG
@@ -114,54 +111,54 @@ The value can be read even if the ALRST bit is set to "1".
 |-|-|-|-|-|-|-|-|-|-|-|
 |#7|W|DT7|DT6|DT5|DT4|DT3|DT2|DT1|DT0|-|
 
-#### Description
-The register is used to write contents data.
+#### 描述
+该寄存器用于写入内容数据。
 
-### Sequencer Setting
+### 音序器设置
 
 | I_ADR | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | Reset Value |
 |-|-|-|-|-|-|-|-|-|-|-|
 |#8|W/R|AllKeyOff|AllMute|AllEGRst|R_FIFOR|REP_SQ|R_SEQ| R_FIFO|START|00H|
 
 ### AllKeyOff
-#### Description
-The AllKeyOff is the register bit used to set the KeyOn registers of all the voices to "0".  
+#### 描述
+AllKeyOff是用于将所有声音的KeyOn寄存器设置为“0”的寄存器位。
 
-+ "0": no processing (reset value)
-+ "1": Sets the KeyOn registers to "0".
++ "0": 没有处理 (复位初值)
++ "1": 将KeyOn寄存器设置为“0”。
 
-After setting the register bit to "1", wait for more than 6us and then return it to "0".
+将寄存器位设置为“1”后，等待超过6us后，然后将其返回到“0”。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 ### AllMute
-#### Description
-The AllMute is the register bit used to set the Mute registers of all the voices to "1".  
-+ "0": no processing (reset value)
-+ "1": Sets the Mute registers to "1".
+#### 描述
+AllMute是用于将所有声音的静音寄存器设置为“1”的寄存器位。
++ "0": 没有处理 (复位初值)
++ "1": 将静音寄存器设置为“1”。
 
-After setting the register bit to "1", wait for more than 6us and then return it to "0".
+将寄存器位设置为“1”后，等待超过6us后，然后将其返回到“0”。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 ### AllEGRst
-#### Description
-The AllEGRst is used to set the EG_RST registers of all the voices to "1".
-+ "0": no processing (reset value)
-+ "1": Sets the EG_RST registers to "1".
+#### 描述
+AllEGRst用于将所有声音的EG_RST寄存器设置为“1”。
++ "0": 没有处理 (复位初值)
++ "1": 将EG_RST寄存器设置为“1”。
 
-After setting the register bit to "1", wait for more than 6us and then return it to "0".
+将寄存器位设置为“1”后，等待超过6us，然后将其返回到“0”。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 
 ### SEQ_Vol
@@ -172,13 +169,13 @@ After setting the register bit to "1", wait for more than 6us and then return it
 |#10|W/R|SIZE7|SIZE6|SIZE5|SIZE4|SIZE3|SIZE2|SIZE1|SIZE0|00H|
 
 
-#### Description
-The SEQ_Vol is the volume setting register of the sequencer volume.  
+#### 描述
+SEQ_Vol是音序器音量的音量设置寄存器。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 |Value(HEX)|Volume[dB]|
 |-|-|
@@ -217,24 +214,24 @@ The SEQ_Vol is the volume setting register of the sequencer volume.
 
 ### DIR_SV
 
-#### Description
+#### 描述
 
-The DIR_SV register bit controls whether to apply the interpolation to the SEQ_Vol and the ChVol0-15.  
-When the register bit is set to "1", the interpolation is not applied to the SEQ_Vol and the ChVol0-15 regardless of the settings of the DIR_CV0?15 and the CHVOL_ITIME.  
-When it is set to "0" (reset value), the interpolation is dependent on the DIR_CV0?15 and CHVOL_ITIME settings.
+DIR_SV寄存器位控制是否将插值应用于SEQ_Vol和ChVol0-15。
+当寄存器位设置为“1”时，无论DIR_CV0-15和CHVOL_ITIME的设置如何，插值都不会应用于SEQ_Vol和ChVol0-15。
+当它设置为“0”（复位值）时，插值取决于DIR_CV0-15和CHVOL_ITIME设置。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N= "L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 ### SIZE
 
-#### Description
-The SIZE is the register used to set the size of sequence data in bytes.
+#### 描述
+SIZE是用于设置音序器数据大小的寄存器，以字节为单位。
 
 
-## Synthesizer Setting
+## 合成器设置
 
 ### CRGD_VNO
 
@@ -242,16 +239,16 @@ The SIZE is the register used to set the size of sequence data in bytes.
 |-|-|-|-|-|-|-|-|-|-|-|
 |#11|W/R|"0"|"0"|"0"|"0"|CRGD_VNO3|CRGD_VNO2|CRGD_VNO1|CRGD_VNO0|00H|
 
-#### Description
-The CRGD_VNO is used to specify a tone number.
+#### 描述
+CRGD_VNO用于指定音调编号。
 
-#### Reset Conditions
-1. When the power supplies are turned on (power-on reset).
-2. When the hardware reset is applied (RST_N="L").
-3. When the ALRST is set to "1".
+#### 重置条件
+1. 电源打开时（电源复位）。
+2. 应用硬件复位时（RST_N =“L”）。
+3. 当ALRST设置为“1”时。
 
 
-## Control Register Write Registers
+## 控制寄存器写入寄存器
 
 | I_ADR | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |
 |-|-|-|-|-|-|-|-|-|-|
