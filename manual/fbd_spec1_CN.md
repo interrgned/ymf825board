@@ -9,7 +9,7 @@
 
 + 16复音FM合成器
 + 29种预设运算器波形和8种FM合成算法
-+ Synchronous serial data link for host controller interface
++ 同步串行连接的主机接口
 + 集成扬声器驱动（还支持连接外部放大器）
 + 集成3段均衡器
 + 集成16位单声道DAC
@@ -19,23 +19,23 @@
 ### 系统设置
 
 + I_ADR#0-2, 4, 29 can be accessed even when the ALRST is "1".
-As might be expected, other registers can be accessed only when the ALRST is "0".
+正如所料，只有当ALRST为“0”时才能访问其他寄存器。
 
 
-| I_ADR | Name | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | Reset Value |
+| I_ADR | 寄存器名 | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | 复位初值 |
 |-|-|-|-|-|-|-|-|-|-|-|-|
-|#0| Clock Enable |W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|CLKE|00H |
-|#1|Reset|W/R|ALRST|"0"|"0"|"0"|"0"|"0"|"0"|"0"|80H|
-|#2|Analog Block Power-down control|W/R|"0"|"0"|"0"|"0"|AP3|AP2|AP1|AP0| 0FH|
-|#3|Speaker Amplifier Gain Setting|W/R|"0"|"0"|"0"|"0"|"0"|"0"|GAIN1|GAIN0|01H|
-|#4|Hardware ID|R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|"1"|01H|
-|#5|Interrupt|W/R R|"0"|"0"|"0"|EMP_DW|"0"|FIFO|"0"|SQ_STP|00H|
+|#0| 时钟使能 |W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|CLKE|00H |
+|#1|复位|W/R|ALRST|"0"|"0"|"0"|"0"|"0"|"0"|"0"|80H|
+|#2|模拟部分掉电控制|W/R|"0"|"0"|"0"|"0"|AP3|AP2|AP1|AP0| 0FH|
+|#3|扬声器放大增益设置|W/R|"0"|"0"|"0"|"0"|"0"|"0"|GAIN1|GAIN0|01H|
+|#4|硬件ID|R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|"1"|01H|
+|#5|中断|W/R R|"0"|"0"|"0"|EMP_DW|"0"|FIFO|"0"|SQ_STP|00H|
 |#6||W/R|"0"|EIRQ|"0"|EEMP_DW|"0"|EFIFO|"0"|ESQ_STP|00H|
-|#7|Contents Data Write Port|W|DT7|DT6|DT5|DT4|DT3|DT2|DT1|DT0|00H|
-|#8|Sequencer Setting|W/R|AllKeyOff|AllMute|AllEGRst|R_FIFOR|REP_SQ|R_SEQ| R_FIFO|START|00H|
+|#7|内容数据写入端口|W|DT7|DT6|DT5|DT4|DT3|DT2|DT1|DT0|00H|
+|#8|音序器设置|W/R|AllKeyOff|AllMute|AllEGRst|R_FIFOR|REP_SQ|R_SEQ| R_FIFO|START|00H|
 |#9||W/R|SEQ_Vol4|SEQ_Vol3|SEQ_Vol2|SEQ_Vol1|SEQ_Vol0|DIR_SV|"0"|SIZE8|00H|
 |#10||W/R|SIZE7|SIZE6|SIZE5|SIZE4|SIZE3|SIZE2|SIZE1|SIZE0|00H|
-|#11|Synthesizer Setting|W/R|"0"|"0"|"0"|"0"|CRGD_VNO3|CRGD_VNO2|CRGD_VNO1|CRGD_VNO0|00H|
+|#11|合成器设置|W/R|"0"|"0"|"0"|"0"|CRGD_VNO3|CRGD_VNO2|CRGD_VNO1|CRGD_VNO0|00H|
 |#12||W|"0"|VoVol4|VoVol3|VoVol2|VoVol1|VoVol0|"0"|"0"|60H|
 |#13||W|"0"|"0"|FNUM9|FNUM8|FNUM7|BLOCK2|BLOCK1|BLOCK0|00H|
 |#14||W|"0"|FNUM6|FNUM5|FNUM4|FNUM3|FNUM2|FNUM1|FNUM0|00H|
@@ -45,25 +45,25 @@ As might be expected, other registers can be accessed only when the ALRST is "0"
 |#18||W|"0"|"0"|"0"|INT1|INT0|FRAC8|FRAC7|FRAC6|08H|
 |#19||W|"0"|FRAC5|FRAC4|FRAC3|FRAC2|FRAC1|FRAC0|"0"|00H|
 |#20||W|"0"|"0"|"0"|"0"|"0"|"0"|"0"|DIR_MT|00H|
-|#21|Control Register Read Port|W/R|RDADR_CRG7|RDADR_CRG6|RDADR_CRG5|RDADR_CRG4|RDADR_CRG3|RDADR_CRG2|RDADR_CRG1|RDADR_CRG0|00H|
+|#21|控制寄存器读出端口|W/R|RDADR_CRG7|RDADR_CRG6|RDADR_CRG5|RDADR_CRG4|RDADR_CRG3|RDADR_CRG2|RDADR_CRG1|RDADR_CRG0|00H|
 |#22||R|"0"|RDDATA_CRG6|RDDATA_CRG5|RDDATA_CRG4|RDDATA_CRG3|RDDATA_CRG2|RDDATA_CRG1|RDDATA_CRG0|-|
-|#23|Sequencer Time unit Setting|W/R|"0"|MS_S13|MS_S12|MS_S11|MS_S10|MS_S9|MS_S8|MS_S7|00H|
+|#23|音序器时间单位设置|W/R|"0"|MS_S13|MS_S12|MS_S11|MS_S10|MS_S9|MS_S8|MS_S7|00H|
 |#24||W/R|"0"|MS_S6|MS_S5|MS_S4|MS_S3|MS_S2|MS_S1|MS_S0|00H|
-|#25|Master Volume|W/R|MASTER_VOL5|MASTER_VOL4|MASTER_VOL3|MASTER_VOL2|MASTER_VOL1|MASTER_VOL0|"0"|"0"|00H|
-|#26|Soft Reset|W/R|SFTRST7|SFTRST6|SFTRST5|SFTRST4|SFTRST3|SFTRST2|SFTRST1|SFTRST0|00H|
+|#25|主音量|W/R|MASTER_VOL5|MASTER_VOL4|MASTER_VOL3|MASTER_VOL2|MASTER_VOL1|MASTER_VOL0|"0"|"0"|00H|
+|#26|软复位|W/R|SFTRST7|SFTRST6|SFTRST5|SFTRST4|SFTRST3|SFTRST2|SFTRST1|SFTRST0|00H|
 |#27|Sequencer Delay, Recovery Function Setting, Volume Interpolation Setting|W/R|"0"|DADJT|MUTE_ITIME1|MUTE_ITIME0|CHVOL_ITIME1|CHVOL_ITIME0|MVOL_ITIME1|MVOL_ITIME0|00H|
-|#28|LFO Reset|W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|LFO_RST|00H|
-|#29|Power Rail Selection|W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|DRV_SEL|00H|
-|#30|Reserved|||||||||||
-|#31|Reserved|||||||||||
+|#28|LFO复位|W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|LFO_RST|00H|
+|#29|电源通道设置|W/R|"0"|"0"|"0"|"0"|"0"|"0"|"0"|DRV_SEL|00H|
+|#30|保留|||||||||||
+|#31|保留|||||||||||
 
-Note
+注意
 + Before you write I_ADR#12-19 of Synthesizer Setting, you first have to write channel number to CRGD_VNO[3:0] (I_ADR#11).
 
 
-### EQ Coeffcient Setting
+### EQ系数设定
 
-|I_ADR|Name|W/R|D7-D0|Reset Value|
+|I_ADR|寄存器名|W/R|D7-D0|复位初值|
 |-|-|-|-|-|
 |#32|EQ BAND0 coefficient Write Port|W|W_CEQ0[7:0]|00H|
 |#33|EQ BAND1 coefficient Write Port|W|W_CEQ1[7:0]|00H|
@@ -114,29 +114,29 @@ Note
 |#78||R|CEQ24[15:8]|00H|
 |#79||R|CEQ24[7:0]|00H|
 
-### Software Communication Check
+### 软件通讯检查
 
-| I_ADR | Name | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | Reset Value |
+| I_ADR | 寄存器名 | W/R | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | 复位初值 |
 |-|-|-|-|-|-|-|-|-|-|-|-|
-|#80|Software test communication|W/R|COMM7|COMM6|COMM5|COMM4|COMM3|COMM2|COMM1|COMM0|00H|
+|#80|软件测试通信|W/R|COMM7|COMM6|COMM5|COMM4|COMM3|COMM2|COMM1|COMM0|00H|
 
 
-## Read/Write Accesses to Interface Registers
+## 读/写接口寄存器的访问
 
-### SPI Specification
-+ MSB first
-+ Mode 0
-+ max 10MHz
+### SPI 规范
++ 数据高位优先
++ 模式 0
++ 最大频率 10MHz
 
-### Single Write
+### 单次写入
 
-2 bytes (16 bits) is needed for one write access: 1-byte write command and 1-byte write data.
-Be sure to access the register in two bytes (16 bits).
-The /SS pin should be set to "H" for each two-byte write access.
+单次写入需要2个字节（16位）：1字节写命令和1字节写数据。
+务必以两个字节（16位）访问寄存器。
+每写入两个字节，应当将/SS引脚置高。
 
 ![Single Write](spi_single.png)
 
-### Burst Write
+### 突发写入
 
 In the burst write operation, data can be written into the same interface register address in succession.
 Enter multiple data consecutively for one write command like this: [write command + data + data +...].
