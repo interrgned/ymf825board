@@ -138,55 +138,53 @@
 
 ### 突发写入
 
-In the burst write operation, data can be written into the same interface register address in succession.
-Enter multiple data consecutively for one write command like this: [write command + data + data +...].
-This device interprets the /SS pin being "H" as the end of the write access; therefore, be sure to set this pin to "H" after the
-burst write operation.
-Each data should be one byte. If the /SS pin is set to "H" at less than 1 byte, such as 6 bits, unusual operation may occur
-because of an illegal write operation.
+在突发写入操作中，数据可以连续写入相同的接口寄存器地址。
+为一个写命令连续输入多个数据，如下所示：[写指令 + 数据 + 数据 + ...]。
+该器件将/SS引脚置“H”理解为写操作的结束；因此，请确保在突发写入操作后将此引脚设置为“H”。
+每个数据应为一个字节。如果/SS引脚在小于1字节的时候置“H”，例如6位，则可能因为非法写操作而发生异常。
 
 ![Burst Write](spi_burst.png)
 
-### Read Access
+### 读出访问
 
-Setting the bit WR (command) to "1" indicates a read access command.
-The read data is transmitted in synchronization with the falling edges of the SCK from the 9th clock.
-The data is in MSB first format (D7→D0).
-The following shows the details of the SO pin:
-+ During the latter 8 clock cycles, the read data (D[7:0]) is transmitted in MSB first format.
-+ The SO pin goes to a high-impedance state (Hi-Z) whenever the data is not being read.
+将WR（命令）位设置为“1”表示读访问命令。
+从第9个时钟开始，与SCK的下降沿同步地发送读取数据。
+数据采用MSB优先格式（D7→D0）。
+以下显示了SO引脚的详细信息：
++ 在后8个时钟周期期间，读取数据（D[7:0]）以MSB优先格式发送。
++ 只要没有读取数据，SO引脚就会进入高阻态（Hi-Z）。
 
 ![Single Read](spi_read.png)
 
 
-## Tone Parameter Memory Map
+## 音调参数存储器映射
 
-|T_ADR|Name|D7|D6|D5|D4|D3|D2|D1|D0|
+|T_ADR|寄存器名|D7|D6|D5|D4|D3|D2|D1|D0|
 |-|-|-|-|-|-|-|-|-|-|
-|#0+30x[tn]|Entire Tone Setting|"0"|"0"|"0"|"0"|"0"|"0"|BO1|BO0|
+|#0+30x[tn]|整个音调设置|"0"|"0"|"0"|"0"|"0"|"0"|BO1|BO0|
 |#1+30x[tn]||LFO1|LFO0|"0"|"0"|"0"|ALG2|ALG1|ALG0|
-|#2+30x[tn]|Operator1 Setting|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
+|#2+30x[tn]|运算器1设置|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
 |#3+30x[tn]||RR3|RR2|RR1|RR0|DR3|DR2|DR1|DR0|
 |#4+30x[tn]||AR3|AR2|AR1|AR0|SL3|SL2|SL1|SL0|
 |#5+30x[tn]||TL5|TL4|TL3|TL2|TL1|TL0|KSL1|KSL0|
 |#6+30x[tn]||"0"|DAM1|DAM0|EAM|"0"|DVB1|DVB0|EVB|
 |#7+30x[tn]||MULTI3|MULTI2|MULTI1|MULTI0|"0"|DT2|DT1|DT0|
 |#8+30x[tn]||WS4|WS3|WS2|WS1|WS0|FB2|FB1|FB0|
-|#9+30x[tn]|Operator2 Setting|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
+|#9+30x[tn]|运算器2设置|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
 |#10+30x[tn]||RR3|RR2|RR1|RR0|DR3|DR2|DR1|DR0|
 |#11+30x[tn]||AR3|AR2|AR1|AR0|SL3|SL2|SL1|SL0|
 |#12+30x[tn]||TL5|TL4|TL3|TL2|TL1|TL0|KSL1|KSL0|
 |#13+30x[tn]||"0"|DAM1|DAM0|EAM|"0"|DVB1|DVB0|EVB|
 |#14+30x[tn]||MULTI3|MULTI2|MULTI1|MULTI0|"0"|DT2|DT1|DT0|
 |#15+30x[tn]||WS4|WS3|WS2|WS1|WS0|"0"|"0"|"0"|
-|#16+30x[tn]|Operator3 Setting|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
+|#16+30x[tn]|运算器3设置|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
 |#17+30x[tn]||RR3|RR2|RR1|RR0|DR3|DR2|DR1|DR0|
 |#18+30x[tn]||AR3|AR2|AR1|AR0|SL3|SL2|SL1|SL0|
 |#19+30x[tn]||TL5|TL4|TL3|TL2|TL1|TL0|KSL1|KSL0|
 |#20+30x[tn]||"0"|DAM1|DAM0|EAM|"0"|DVB1|DVB0|EVB|
 |#21+30x[tn]||MULTI3|MULTI2|MULTI1|MULTI0|"0"|DT2|DT1|DT0|
 |#22+30x[tn]||WS4|WS3|WS2|WS1|WS0|FB2|FB1|FB0|
-|#23+30x[tn]|Operator4 Setting|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
+|#23+30x[tn]|运算器4设置|SR3|SR2|SR1|SR0|XOF|"0"|"0"|KSR|
 |#24+30x[tn]||RR3|RR2|RR1|RR0|DR3|DR2|DR1|DR0|
 |#25+30x[tn]||AR3|AR2|AR1|AR0|SL3|SL2|SL1|SL0|
 |#26+30x[tn]||TL5|TL4|TL3|TL2|TL1|TL0|KSL1|KSL0|
@@ -194,86 +192,87 @@ The following shows the details of the SO pin:
 |#28+30x[tn]||MULTI3|MULTI2|MULTI1|MULTI0|"0"|DT2|DT1|DT0|
 |#29+30x[tn]||WS4|WS3|WS2|WS1|WS0|"0"|"0"|"0"|
 
-Note
+注意
 + T_ADR means Tone Setting format of Cotents Format(below).
-+ tn: Tone Number(0-15)
++ tn: 声音编号(0-15)
 
 
-### Contents Format
+### 内容格式
 
 The contents format specifies tone parameters and the sequence of data that can be played back with this device consists of melody contents.
 The contents are written into the register (I_ADR#7: CONTENTS_DATA_REG) via the CPU interface.
 
-#### Data format
+#### 数据格式
 
 + Header: 1byte(80H + Maximum Tone Number)
 + Tone Setting 30 to 480bytes(it depends on the number of the configured tones)
 + Sequence Data(any size)
 + End(80H,03H,81H,80H)
 
-#### Tone Setting
+#### 音调设定
 
 The tone parameters are set by the number of tones set to the Header.
 The parameter consists of 30 bytes of data for one tone.
 The data are transferred and assigned to the Tone parameter memory from Tone 0 in the order they are written; therefore, parameters of an intermediate Tone number cannot be written first.
 For details of the tone parameters, see "Tone Parameter"(fbd_spec3.md).
 
-## Initialization Procedure
+## 初始化程序
 
-1. Supply the power to the device. 
+1. 为设备供电。 
 
-	The power supply should be powered with RST_N pin held "L" when the power-on reset requirements cannot be satisfied.
+	当无法满足上电复位要求时，RST_N引脚应保持“L”。
 
-1. Wait for 100us after supply voltages rise
+1. 电源电压上升后等待100us
 
-	up to the specified level.
-	This period of time is the time required for the regulator stabilization.
+	达到指定的电压。
+	这段时间是稳压器到达稳定状态所需的时间。
+	
+1. 将RST_N引脚设置为“H”。
 
-1. Set the RST_N pin to "H". 
-
-	The hardware reset state is removed.
+	硬件复位状态被取消。
 	No need to set to "H" when this device is used with RST_N pin held "H".
 
-1. Set DRV_SEL to "0" when this device is used in single 5-V power supply
-configuration.
-Set DRV_SEL to "1" when this device is used in dual power supply configuration.
+1. 当此器件用于单5V电源配置时，将DRV_SEL设置为“0”。
+当此设备用于双电源配置时，将DRV_SEL设置为“1”。
 
-	The power rail is selected.
+	选择电源输入。
 
-1. Set the AP0 to "0". The VREF is powered.
+1. 将AP0设置为“0”。
 
-1. Wait until the clock becomes stable. 
+	VREF已供电。
 
-	The duration of the time required for stable crystal oscillation.
+1. 等待时钟稳定
 
-1. Set the CLKE to "1". 
+	等待晶振到稳定状态
 
-	Clocks are supplied to the internal circuit.
+1. 将CLKE设置为“1”。
 
-1. Set the ALRST to "0". 
+	时钟提供给内部电路。
 
-	The reset state of the internal circuits is removed.
+1. 将ALRST设置为“0”。
 
-1. Set the SFTRST to "A3H". 
+	清除内部电路的复位状态。
 
-	The synthesizer block is initialized.
+1. 将SFTRST设置为“A3H”。
 
-1. Set the SFTRST to "00H".
+	合成器模块初始化。
 
-1. Wait for 30ms after the step 10.
+1. 将SFTRST设置为“00H”。
 
-	This period of time is the time required for the VREF stabilization and the SFTRST completion.
+1. 在步骤10之后等待30ms。
 
-1. Set the AP1 and the AP3 to "0".
+	这段时间是VREF稳定和SFTRST完成所需的时间。
+	
+1. 将AP1和AP3设置为“0”。
 
-	The power-down state of Audio Out is removed.
+	清除音频输出的断电状态。
 
-1. Wait for 10us.
+1. 等待10us。
 
-	This period of time is the time required for preventing pop noise. Use this time for setting the synthesizer etc.
+	这段时间是防止爆音所需的时间。 使用这段时间来设置合成器等。
 
-1. Set the AP2 to "0". 
+1. 将AP2设置为“0”。 
 
-	The power-down state of the Audio Out is removed.
+	清除音频输出的断电状态。
 
 
