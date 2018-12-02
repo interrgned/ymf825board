@@ -1,23 +1,22 @@
-# YMF825(SD-1) IF specification
+# YMF825(SD-1) IF 规范
 
-## Caution
+## 注意
 
-Although this manual is created based on the SD-1 specifications, only the information necessary for YMF825Board is described. Therefore, please understand beforehand that it is not a complete specification of SD-1.
-In addition, please understand that we will not guarantee any results by using SD-1 based on the contents posted in this manual.
+尽管本手册是基于SD-1规范创建的，但仅描述了YMF825Board所需的信息。 因此，请事先了解它不是SD-1的完整规格。
+此外，请理解我们不会保证根据本手册中公布的内容使用SD-1的任何结果。
 
+## 特征
 
-## Features
-
-+ 16-voice polyphonic FM synthesizer
-+ 29 on-chip operator-waveforms and 8 algorithms offers a whole variety of sound
++ 16复音FM合成器
++ 29种预设运算器波形和8种FM合成算法
 + Synchronous serial data link for host controller interface
-+ Integrated loudspeaker driver (Also supports external amplifier connection)
-+ Integrated 3-band equalizer
-+ Integrated 16-bit monaural DAC
++ 集成扬声器驱动（还支持连接外部放大器）
++ 集成3段均衡器
++ 集成16位单声道DAC
 
-## Interface Register
+## 接口寄存器
 
-### System Setting
+### 系统设置
 
 + I_ADR#0-2, 4, 29 can be accessed even when the ALRST is "1".
 As might be expected, other registers can be accessed only when the ALRST is "0".
